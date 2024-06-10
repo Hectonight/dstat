@@ -12,7 +12,7 @@ import (
 
 func main() {
 
-	mode := funcs.POPULATION
+	mode := funcs.SAMPLE
 	var data []float64
 
 Loop:
@@ -101,6 +101,9 @@ Loop:
 				continue
 			}
 			fmt.Println(funcs.StandardDeviation(data, mode))
+
+		case "count":
+			fmt.Println(len(data))
 
 		//case "zscore":
 		//	if len(data) == 0 {
