@@ -5,24 +5,20 @@ import (
 	"fmt"
 	flag "github.com/spf13/pflag"
 	"os"
+	"slices"
 )
 
 /*
 	Flag ideas
 
 	-r --round [int]
-	--mean
 	--stdev
 	-var --variance
-	--max
-	--min
 	-q --quartile [1-3]
-	-med --median
 	--stdevp
 	-varp --variance-population
 	--mode
 	-i --ignore string
-	-n --count
 	-s --summary
 	-sc --scientific
 	-v --version
@@ -36,8 +32,12 @@ func main() {
 		flag.PrintDefaults()
 	}
 
-	// TODO: Add help messages
 	var help *bool = flag.BoolP("help", "h", false, "Display this message")
+	var mean *bool = flag.Bool("mean", false, "Find the mean of the data")
+	var minFlag *bool = flag.Bool("min", false, "Find the minimum of the data")
+	var maxFlag *bool = flag.Bool("max", false, "Find the maximum of the data")
+	var count *bool = flag.BoolP("count", "n", false, "Size of the data set")
+	var median *bool = flag.Bool("median", false, "Find the median of the data")
 
 	flag.Parse()
 
@@ -65,6 +65,27 @@ func main() {
 			os.Exit(1)
 		}
 	}
-	fmt.Println(funcs.Mean(data))
+
+	slices.Sort(data)
+
+	if *count {
+		fmt.Printf("Count: %v\n", len(data))
+	}
+
+	if *mean {
+		fmt.Printf("Mean: %v\n", funcs.Mean(data))
+	}
+
+	if *minFlag {
+		fmt.Printf("Min: %v\n", data[0])
+	}
+
+	if *median {
+		fmt.Printf("Median: %v\n", funcs.Median(data))
+	}
+
+	if *maxFlag {
+		fmt.Printf("Max: %v\n", data[len(data)-1])
+	}
 
 }
