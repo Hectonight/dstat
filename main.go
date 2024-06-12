@@ -73,14 +73,11 @@ func main() {
 
 	var data []float64
 	var err error
-	if flag.NArg() == 0 {
 
+	if flag.NArg() == 0 {
+		data, err = funcs.ReadFile(os.Stdin, separators, ignore)
 	} else {
 		data, err = funcs.ReadFiles(flag.Args(), separators, ignore)
-		if err != nil {
-			fmt.Println(err.Error())
-			os.Exit(1)
-		}
 	}
 
 	if err != nil {
