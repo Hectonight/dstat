@@ -40,11 +40,11 @@ func main() {
 	var median *bool = flag.Bool("median", false, "Find the median of the data.")
 	var stdev *bool = flag.Bool("stdev", false,
 		"Find the standard deviation of the data while treating it as a sample.")
-	var variance *bool = flag.BoolP("variance", "var", false,
+	var variance *bool = flag.Bool("var", false,
 		"Find the variance of the data while treating it as a sample.")
 	var stdevp *bool = flag.Bool("stdevp", false,
 		"Find the standard deviation of the data while treating it as a population.")
-	var variancep *bool = flag.BoolP("variance-p", "varp", false,
+	var variancep *bool = flag.Bool("varp", false,
 		"Find the variance of the data while treating it as a population.")
 
 	flag.Parse()
