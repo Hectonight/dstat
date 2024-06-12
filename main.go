@@ -2,6 +2,7 @@ package main
 
 import (
 	"dstat/internal/funcs"
+	"dstat/internal/platform"
 	"fmt"
 	flag "github.com/spf13/pflag"
 	"os"
@@ -89,6 +90,7 @@ func main() {
 	var err error
 
 	if flag.NArg() == 0 {
+		fmt.Printf("Input Data (%v to end):\n", platform.EOFKey)
 		data, err = funcs.ReadFile(os.Stdin, separators, ignore)
 	} else {
 		data, err = funcs.ReadFiles(flag.Args(), separators, ignore)
