@@ -24,7 +24,22 @@ import (
 	-v --version
 */
 
+/*
+	Add error messages for:
+
+	strconv.ParseFloat: parsing "l": invalid syntax
+	open TEST: no such file or directory
+
+	On Windows
+	open testdata/no_access.txt: Access is denied.
+
+	On WSL
+	open testdata/no_access.txt: permission denied
+
+*/
+
 func main() {
+
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr,
 			"Usage of %s: %s [OPTIONS]... [FILES]...\nIf FILES is not set read from standard input.\n",
