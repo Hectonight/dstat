@@ -55,6 +55,14 @@ func main() {
 		"Find the standard deviation of the data while treating it as a population.")
 	var variancep *bool = flag.Bool("varp", false,
 		"Find the variance of the data while treating it as a population.")
+	var whitespace *string = flag.StringP("whitespace", "w", "",
+		"Treat characters in this string as whitespace.")
+	var ignoreFlag *string = flag.StringP("ignore", "i", "",
+		"Ignore characters in this string.")
+	var sum *bool = flag.Bool("sum", false, "Find the sum of the data")
+
+	//var summary *bool = flag.BoolP("summary", "s", false,
+	//	"Give a 5 number summary of the data")
 
 	flag.Parse()
 
@@ -68,8 +76,8 @@ func main() {
 		os.Exit(0)
 	}
 
-	separators := []rune{}
-	ignore := []rune{}
+	separators := []rune(*whitespace)
+	ignore := []rune(*ignoreFlag)
 
 	var data []float64
 	var err error
@@ -89,6 +97,10 @@ func main() {
 
 	if *count {
 		fmt.Printf("Count: %v\n", len(data))
+	}
+
+	if *sum {
+		fmt.Printf("Sum: %v\n", funcs.Sum(data))
 	}
 
 	if *mean {
