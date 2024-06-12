@@ -12,13 +12,7 @@ import (
 	Flag ideas
 
 	-r --round [int]
-	--stdev
-	-var --variance
 	-q --quartile [1-3]
-	--stdevp
-	-varp --variance-population
-	--mode
-	-i --ignore string
 	-s --summary
 	-sc --scientific
 	-v --version
