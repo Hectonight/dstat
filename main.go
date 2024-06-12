@@ -16,19 +16,25 @@ import (
 	-s --summary
 	-sc --scientific
 	-v --version
+	--json
 */
 
 /*
 	Add error messages for:
 
-	strconv.ParseFloat: parsing "l": invalid syntax
-	open TEST: no such file or directory
+	strconv.ParseFloat: parsing "...": invalid syntax
+	strconv.ParseFloat: parsing "...": value out of range
+	open ...: no such file or directory
 
 	On Windows
-	open testdata/no_access.txt: Access is denied.
+	open ...: Access is denied.
 
 	On WSL
-	open testdata/no_access.txt: permission denied
+	open ...: permission denied
+
+	+Inf, -Inf, and NaN are valid values
+
+	Values my hit +Inf and -Inf
 
 */
 

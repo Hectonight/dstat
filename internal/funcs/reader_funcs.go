@@ -23,6 +23,7 @@ func ConvertFloats(fields []string) ([]float64, error) {
 	data := make([]float64, len(fields))
 	for i, field := range fields {
 		value, err := strconv.ParseFloat(field, 64)
+
 		if err != nil {
 			return nil, err
 		}
