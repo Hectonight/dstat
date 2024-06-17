@@ -62,7 +62,7 @@ func ReadFiles(files []string, seperators []rune, ignore []rune) ([]float64, err
 	for _, fileName := range files {
 		file, err := os.Open(fileName)
 		if err != nil {
-			return nil, err
+			return nil, err.(*os.PathError).Err
 		}
 
 		dat, err := ReadFile(file, seperators, ignore)

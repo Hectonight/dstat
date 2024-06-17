@@ -25,13 +25,6 @@ import (
 
 	strconv.ParseFloat: parsing "...": invalid syntax
 	strconv.ParseFloat: parsing "...": value out of range
-	open ...: no such file or directory
-
-	On Windows
-	open ...: Access is denied.
-
-	On WSL
-	open ...: permission denied
 
 	+Inf, -Inf, and NaN are valid values
 
@@ -97,7 +90,7 @@ func main() {
 	}
 
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err.Error())
+		fmt.Fprintf(os.Stderr, "dstat: %s\n", err.Error())
 		os.Exit(1)
 	}
 
