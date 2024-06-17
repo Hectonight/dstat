@@ -90,7 +90,7 @@ func main() {
 	}
 
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "dstat: %s\n", err.Error())
+		fmt.Fprintf(os.Stderr, "dstat: %v\n", err.Error())
 		os.Exit(1)
 	}
 
