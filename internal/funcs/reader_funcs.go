@@ -32,7 +32,7 @@ func ConvertFloats(fields []string) ([]float64, error) {
 	return data, nil
 }
 
-func ReadFile(r io.Reader, seperators []rune, ignore []rune) ([]float64, error) {
+func ReadFile(r io.Reader, separators []rune, ignore []rune) ([]float64, error) {
 	data := make([]float64, 0, capacity)
 	scanner := bufio.NewScanner(r)
 
@@ -42,7 +42,7 @@ func ReadFile(r io.Reader, seperators []rune, ignore []rune) ([]float64, error) 
 			switch {
 			case slices.Contains(ignore, r):
 				return -1
-			case slices.Contains(seperators, r):
+			case slices.Contains(separators, r):
 				return ' '
 			}
 			return r
@@ -56,7 +56,7 @@ func ReadFile(r io.Reader, seperators []rune, ignore []rune) ([]float64, error) 
 	return data, nil
 }
 
-func ReadFiles(files []string, seperators []rune, ignore []rune) ([]float64, error) {
+func ReadFiles(files []string, separators []rune, ignore []rune) ([]float64, error) {
 	data := make([]float64, 0, capacity*len(files))
 
 	for _, fileName := range files {
@@ -65,7 +65,7 @@ func ReadFiles(files []string, seperators []rune, ignore []rune) ([]float64, err
 			return nil, err // (*os.PathError).Err
 		}
 
-		dat, err := ReadFile(file, seperators, ignore)
+		dat, err := ReadFile(file, separators, ignore)
 		if err != nil {
 			return nil, err
 		}
