@@ -85,6 +85,7 @@ func main() {
 	if flag.NArg() == 0 {
 		fmt.Printf("Input Data (%v to end):\n", platform.EOFKey)
 		data, err = funcs.ReadFile(os.Stdin, separators, ignore)
+		fmt.Println()
 	} else {
 		data, err = funcs.ReadFiles(flag.Args(), separators, ignore)
 	}
