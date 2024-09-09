@@ -5,7 +5,7 @@ dstat is a command line tool to help you quickly find statistics pertaining to a
 You can either you a file or stdin as input. You can 
 
 ## Installation
-Download the binary found [here](https://github.com/Hectonight/dstat/releases/tag/1.0.0)
+Download the release binary found [here](https://github.com/Hectonight/dstat/releases/)
 and add it to your PATH.
 
 ## Usage
