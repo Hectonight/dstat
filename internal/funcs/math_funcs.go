@@ -1,12 +1,13 @@
 package funcs
 
-import (
-	"errors"
-	"math"
-)
+import "math"
 
-const SAMPLE = 0
-const POPULATION = 1
+type mode byte
+
+const (
+	SAMPLE mode = iota
+	POPULATION
+)
 
 func Sum(data []float64) float64 {
 	sum := 0.0
@@ -27,7 +28,23 @@ func Median(data []float64) float64 {
 		return data[length/2]
 	} else {
 		mid := length / 2
-		return (data[mid] + data[mid/2-1]) / 2.0
+		return (data[mid] + data[mid-1]) / 2.0
+	}
+}
+
+func FirstQuartile(data []float64) float64 {
+	if len(data) == 1 {
+		return data[0]
+	} else {
+		return Median(data[:len(data)/2])
+	}
+}
+
+func ThirdQuartile(data []float64) float64 {
+	if len(data) == 1 {
+		return data[0]
+	} else {
+		return Median(data[len(data)/2:])
 	}
 }
 
@@ -37,37 +54,25 @@ func varianceSum(data []float64) float64 {
 	for _, v := range data {
 		sum += math.Pow(v-avg, 2)
 	}
-
 	return sum
 }
 
-func Variance(data []float64, mode int) (float64, error) {
-	if mode == POPULATION {
-		return variancePopulation(data), nil
-	} else if mode == SAMPLE {
-		return varianceSample(data), nil
+func Variance(data []float64, m mode) float64 {
+	if m == POPULATION {
+		return varianceSum(data) / float64(len(data))
+	} else if m == SAMPLE {
+		if len(data) == 0 {
+			return 0
+		}
+		return varianceSum(data) / float64(len(data)-1)
 	}
-
-	return 0, errors.New("invalid mode")
+	panic("Not a valid mode")
 }
 
-func varianceSample(data []float64) float64 {
-	if len(data) == 1 {
-		return 0
-	}
-	return varianceSum(data) / float64(len(data)-1)
+func Stdev(data []float64, m mode) float64 {
+	return math.Sqrt(Variance(data, m))
 }
 
-func variancePopulation(data []float64) float64 {
-	return varianceSum(data) / float64(len(data))
-}
-
-func StandardDeviation(data []float64, mode int) (float64, error) {
-	v, err := Variance(data, mode)
-	return math.Sqrt(v), err
-}
-
-func ZScore(value float64, data []float64, mode int) (float64, error) {
-	stdev, err := StandardDeviation(data, mode)
-	return (value - Mean(data)) / stdev, err
-}
+//func ZScore(value float64, data []float64, m mode) float64 {
+//	return (value - Mean(data)) / Stdev(data, m)
+//}

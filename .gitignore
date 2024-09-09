@@ -1,3 +1,6 @@
+dstat
+dstat.exe
+
 ### VisualStudioCode template
 .vscode/*
 !.vscode/settings.json
