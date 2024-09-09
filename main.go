@@ -50,7 +50,7 @@ func main() {
 	var mean *bool = flag.Bool("mean", false, "Find the mean of the data.")
 	var minFlag *bool = flag.Bool("min", false, "Find the minimum of the data.")
 	var maxFlag *bool = flag.Bool("max", false, "Find the maximum of the data.")
-	var rangeFlag *bool = flag.BoolP("range", "p", false, "Find the range of the data.")
+	var rangeFlag *bool = flag.BoolP("range", "r", false, "Find the range of the data.")
 	var count *bool = flag.BoolP("count", "n", false, "Size of the data set.")
 	var median *bool = flag.Bool("median", false, "Find the median of the data.")
 	var firstq *bool = flag.BoolP("first-quartile", "q", false, "Find the first quartile of the data.")
