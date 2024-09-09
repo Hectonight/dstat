@@ -2,7 +2,7 @@
 
 ## About
 dstat is a command line tool to help you quickly find statistics pertaining to a set of data.
-You can either you a file or stdin as input.
+You can either you a file or stdin as input. You can 
 
 ## Installation
 Download the binary found [here](https://github.com/Hectonight/dstat/releases/tag/1.0.0)
@@ -23,7 +23,7 @@ If FILES is not set read from standard input.
       --mean                Find the mean of the data.
       --median              Find the median of the data.
       --min                 Find the minimum of the data.
-  -p, --range               Find the range of the data.
+  -r, --range               Find the range of the data.
       --stdev               Find the standard deviation of the data while treating it as a sample.
       --stdevp              Find the standard deviation of the data while treating it as a population.
       --sum                 Find the sum of the data
