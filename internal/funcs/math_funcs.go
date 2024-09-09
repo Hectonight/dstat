@@ -28,7 +28,7 @@ func Median(data []float64) float64 {
 		return data[length/2]
 	} else {
 		mid := length / 2
-		return (data[mid] + data[mid/2-1]) / 2.0
+		return (data[mid] + data[mid-1]) / 2.0
 	}
 }
 
