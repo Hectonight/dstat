@@ -32,13 +32,28 @@ func Median(data []float64) float64 {
 	}
 }
 
+func FirstQuartile(data []float64) float64 {
+	if len(data) == 1 {
+		return data[0]
+	} else {
+		return Median(data[:len(data)/2])
+	}
+}
+
+func ThirdQuartile(data []float64) float64 {
+	if len(data) == 1 {
+		return data[0]
+	} else {
+		return Median(data[len(data)/2:])
+	}
+}
+
 func varianceSum(data []float64) float64 {
 	sum := 0.0
 	avg := Mean(data)
 	for _, v := range data {
 		sum += math.Pow(v-avg, 2)
 	}
-
 	return sum
 }
 
@@ -58,6 +73,6 @@ func Stdev(data []float64, m mode) float64 {
 	return math.Sqrt(Variance(data, m))
 }
 
-func ZScore(value float64, data []float64, m mode) float64 {
-	return (value - Mean(data)) / Stdev(data, m)
-}
+//func ZScore(value float64, data []float64, m mode) float64 {
+//	return (value - Mean(data)) / Stdev(data, m)
+//}

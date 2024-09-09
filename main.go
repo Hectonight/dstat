@@ -3,6 +3,7 @@ package main
 import (
 	"dstat/internal/funcs"
 	"dstat/internal/platform"
+	"errors"
 	"fmt"
 	flag "github.com/spf13/pflag"
 	"os"
@@ -35,18 +36,25 @@ import (
 func main() {
 
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr,
+		_, err := fmt.Fprintf(os.Stderr,
 			"Usage of %s: %s [OPTIONS]... [FILES]...\nIf FILES is not set read from standard input.\n",
 			os.Args[0], os.Args[0])
+		if err != nil {
+			os.Exit(1)
+		}
 		flag.PrintDefaults()
 	}
 
 	var help *bool = flag.BoolP("help", "h", false, "Display this message.")
+	var summary *bool = flag.BoolP("summary", "s", false,
+		"Give a 5 number summary of the data")
 	var mean *bool = flag.Bool("mean", false, "Find the mean of the data.")
 	var minFlag *bool = flag.Bool("min", false, "Find the minimum of the data.")
 	var maxFlag *bool = flag.Bool("max", false, "Find the maximum of the data.")
 	var count *bool = flag.BoolP("count", "n", false, "Size of the data set.")
 	var median *bool = flag.Bool("median", false, "Find the median of the data.")
+	var firstq *bool = flag.BoolP("first-quartile", "q", false, "Find the first quartile of the data.")
+	var thirdq *bool = flag.BoolP("third-quartile", "Q", false, "Find the third quartile of the data.")
 	var stdev *bool = flag.Bool("stdev", false,
 		"Find the standard deviation of the data while treating it as a sample.")
 	var variance *bool = flag.Bool("var", false,
@@ -60,9 +68,6 @@ func main() {
 	var ignoreFlag *string = flag.StringP("ignore", "i", "",
 		"Ignore characters in this string.")
 	var sum *bool = flag.Bool("sum", false, "Find the sum of the data")
-
-	//var summary *bool = flag.BoolP("summary", "s", false,
-	//	"Give a 5 number summary of the data")
 
 	flag.Parse()
 
@@ -85,17 +90,27 @@ func main() {
 	if flag.NArg() == 0 {
 		fmt.Printf("Input Data (%v to end):\n", platform.EOFKey)
 		data, err = funcs.ReadFile(os.Stdin, separators, ignore)
-		fmt.Println()
 	} else {
 		data, err = funcs.ReadFiles(flag.Args(), separators, ignore)
 	}
 
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "dstat: %v\n", err.Error())
-		os.Exit(1)
+	if len(data) == 0 {
+		err = errors.New("no data found")
 	}
 
+	if err != nil {
+		_, _ = fmt.Fprintf(os.Stderr, "dstat: %v\n", err.Error())
+		os.Exit(1)
+	}
 	slices.Sort(data)
+
+	if *summary {
+		*minFlag = true
+		*firstq = true
+		*median = true
+		*thirdq = true
+		*maxFlag = true
+	}
 
 	if *count {
 		fmt.Printf("Count: %v\n", len(data))
@@ -113,8 +128,16 @@ func main() {
 		fmt.Printf("Min: %v\n", data[0])
 	}
 
+	if *firstq {
+		fmt.Printf("First Quartile: %v\n", funcs.FirstQuartile(data))
+	}
+
 	if *median {
 		fmt.Printf("Median: %v\n", funcs.Median(data))
+	}
+
+	if *thirdq {
+		fmt.Printf("Third Quartile: %v\n", funcs.ThirdQuartile(data))
 	}
 
 	if *maxFlag {
