@@ -37,8 +37,7 @@ func main() {
 
 	flag.Usage = func() {
 		_, err := fmt.Fprintf(os.Stderr,
-			"Usage of %s: %s [OPTIONS]... [FILES]...\nIf FILES is not set read from standard input.\n",
-			os.Args[0], os.Args[0])
+			"Usage: %s [OPTIONS]... [FILES]...\nIf FILES is not set read from standard input.\n", os.Args[0])
 		if err != nil {
 			os.Exit(1)
 		}
