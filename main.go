@@ -51,10 +51,13 @@ func main() {
 	var mean *bool = flag.Bool("mean", false, "Find the mean of the data.")
 	var minFlag *bool = flag.Bool("min", false, "Find the minimum of the data.")
 	var maxFlag *bool = flag.Bool("max", false, "Find the maximum of the data.")
+	var rangeFlag *bool = flag.BoolP("range", "p", false, "Find the range of the data.")
 	var count *bool = flag.BoolP("count", "n", false, "Size of the data set.")
 	var median *bool = flag.Bool("median", false, "Find the median of the data.")
 	var firstq *bool = flag.BoolP("first-quartile", "q", false, "Find the first quartile of the data.")
 	var thirdq *bool = flag.BoolP("third-quartile", "Q", false, "Find the third quartile of the data.")
+	var iqr *bool = flag.BoolP("iqr", "i", false, "Find the IQR of the data.")
+	var sum *bool = flag.Bool("sum", false, "Find the sum of the data")
 	var stdev *bool = flag.Bool("stdev", false,
 		"Find the standard deviation of the data while treating it as a sample.")
 	var variance *bool = flag.Bool("var", false,
@@ -63,11 +66,10 @@ func main() {
 		"Find the standard deviation of the data while treating it as a population.")
 	var variancep *bool = flag.Bool("varp", false,
 		"Find the variance of the data while treating it as a population.")
-	var whitespace *string = flag.StringP("whitespace", "w", "",
+	var whitespace *string = flag.StringP("whitespace", "W", "",
 		"Treat characters in this string as whitespace.")
-	var ignoreFlag *string = flag.StringP("ignore", "i", "",
+	var ignoreFlag *string = flag.StringP("ignore", "I", "",
 		"Ignore characters in this string.")
-	var sum *bool = flag.Bool("sum", false, "Find the sum of the data")
 
 	flag.Parse()
 
@@ -142,6 +144,14 @@ func main() {
 
 	if *maxFlag {
 		fmt.Printf("Max: %v\n", data[len(data)-1])
+	}
+
+	if *rangeFlag {
+		fmt.Printf("Range: %v\n", data[len(data)-1]-data[0])
+	}
+
+	if *iqr {
+		fmt.Printf("IQR: %v\n", funcs.ThirdQuartile(data)-funcs.FirstQuartile(data))
 	}
 
 	if *variance {
