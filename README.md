@@ -2,7 +2,7 @@
 
 ## About
 dstat is a command line tool to help you quickly find statistics pertaining to a set of data.
-You can either you a file or stdin as input. You can 
+You can either you a file or stdin as input.
 
 ## Installation
 Download the release binary found [here](https://github.com/Hectonight/dstat/releases/)
